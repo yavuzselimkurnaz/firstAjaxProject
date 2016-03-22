@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax exapmle</title>
+</head>
+
+<body>
+    <div class="content">Buraya Ajax ile veri çekilecek.</div>
+    <button class="click-me">Tıkla</button>
+    <script>
+    function getData(url) {
+        var asyncGetPage = new XMLHttpRequest();
+        asyncGetPage.addEventListener("readyStateChange", function() {
+            //readyState sayfanın hazır olma durumunu belirtir. 0-4 arası değer alır.
+            if (this.readyState == 4 && this.status == 200) { //sayfa başarı ile yüklendiyse {
+                document.getElementsByClassName('content').innerHTML = asyncGetPage.responseText;
+
+                //JSON dan gelen veri
+                //document.getElementsByClassName('content').innerHTML = JSON.parse(asyncGetPage.responseText).data1;
+
+            } else if (this.status = 404) document.getElementsByClassName('content').innerHTML == "sayfa bulunamadı"
+            else {
+                document.getElementsByClassName('content').innerHTML = "yükleniyor...";
+            }
+        });
+        asyncGetPage.open("get", URL, true);
+        asyncGetPage.send();
+        document.getElementsByClassName('click-me').addEventListener("click", function() {
+            getData("getPage.html");
+            //getData("JSON.html");
+        })
+    }
+    </script>
+</body>
+
+</html>
